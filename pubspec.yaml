@@ -80,6 +80,7 @@ flutter:
        fonts:
          - asset: fonts/WiseSans-Heavy.ttf
          - asset: fonts/Calibre-M.ttf
+         - asset: fonts/Poppins-SemiBold.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
