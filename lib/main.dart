@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pak_rail_login_ui/pages/home.dart';
-import 'package:pak_rail_login_ui/pages/login_screen.dart';
 
 void main() {
   runApp(const MyApp());

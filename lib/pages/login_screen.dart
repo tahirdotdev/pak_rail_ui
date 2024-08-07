@@ -1,11 +1,8 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:pak_rail_login_ui/pages/sign_up_screen.dart';
 import '../colors/MyColors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,10 +13,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _isChecked = false;
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       body: Container(
         child: Stack(
           children: [
@@ -75,6 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
               margin: const EdgeInsets.only(top: 80, left: 60, right: 50),
               child: Image.asset(
                 "images/mainLogo.png",
+                height: 56,
+                width: 56,
                 fit: BoxFit.contain,
               ),
             ),
@@ -180,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
                                     hintText: " +92      xxxxxxxxxx",
-
                                     filled: true,
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -200,12 +200,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                           fontFamily: "Calibre-M"),
                                     )),
                                 TextField(
-                                  obscureText: true,
+                                  obscureText: _obscureText,
                                   decoration: InputDecoration(
                                     filled: true,
                                     hintText: "•••••••••••••",
                                     fillColor: Colors.white,
-                                    suffixIcon: const Icon(Icons.visibility),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(_obscureText
+                                          ? Icons.visibility_off
+                                          : Icons.visibility),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscureText = !_obscureText;
+                                        });
+                                      },
+                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
@@ -215,8 +224,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Row(
                                   children: [
                                     Checkbox(
-                                      value: false,
-                                      onChanged: (value) {},
+                                      value: _isChecked,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _isChecked = value!;
+                                        });
+                                      },
                                     ),
                                     const Text(
                                       'Keep me logged in.',
@@ -330,22 +343,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                       ),
-
                                     ]),
-                                 const SizedBox(height: 20,),
-                                 const Row(
-                                   mainAxisAlignment: MainAxisAlignment.center,
-                                   children: [
-                                     Text(
-                                       "Don't have an account?",
-                                       style: TextStyle(
-                                           color: Colors.white,
-                                           fontWeight: FontWeight.bold),
-                                     ),
-                                     Text(" Sign Up",style: TextStyle(color: Color(0xFFFFEC20),fontWeight: FontWeight.bold),)
-                                   ],
-                                 ),
-
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Don't have an account?",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const SignUpScreen()));
+                                      },
+                                      child: const Text(
+                                        " Sign Up",
+                                        style: TextStyle(
+                                            color: Color(0xFFFFEC20),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
                           ),

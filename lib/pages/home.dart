@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:pak_rail_login_ui/colors/MyColors.dart';
 import 'package:pak_rail_login_ui/pages/login_screen.dart';
+import 'package:pak_rail_login_ui/pages/otp_screen.dart';
+import 'package:pak_rail_login_ui/pages/sign_up_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -69,6 +71,31 @@ class _HomeState extends State<Home> {
                 "images/mainLogo.png",
                 fit: BoxFit.contain,
               ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(_createRoute2());
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    child: const Text(
+                      "VISIT OTP SCREEN",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins-SemiBold',
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -159,7 +186,9 @@ class _HomeState extends State<Home> {
                     width: MediaQuery.of(context).size.width,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(_createRoute1());
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -172,7 +201,7 @@ class _HomeState extends State<Home> {
                             fontSize: 20),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -187,6 +216,37 @@ PageRouteBuilder _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) =>
         const LoginScreen(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(position: offsetAnimation, child: child);
+    },
+  );
+}
+
+PageRouteBuilder _createRoute1() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        const SignUpScreen(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(position: offsetAnimation, child: child);
+    },
+  );
+}
+
+PageRouteBuilder _createRoute2() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const OtpScreen(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
       const end = Offset.zero;
