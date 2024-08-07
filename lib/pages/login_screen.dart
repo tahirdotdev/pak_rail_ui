@@ -194,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     items: _countryCodes.map((String code) {
                                       return DropdownMenuItem<String>(
                                         value: code,
-                                        child: Text(code,style: TextStyle(color: Colors.white),),
+                                        child: Text(code,style: const TextStyle(color: Colors.white),),
                                       );
                                     }).toList(),
                                   ),
