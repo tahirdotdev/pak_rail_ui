@@ -15,6 +15,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isChecked = false;
   bool _obscureText = true;
+  String _selectedCountryCode = '+92';
+  final List<String> _countryCodes = ['+1', '+44', '+91', '+92', '+33']; // Add more codes as needed
+  final TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,17 +180,43 @@ class _LoginScreenState extends State<LoginScreen> {
                                           color: Colors.white,
                                           fontFamily: "Calibre-M"),
                                     )),
-                                TextField(
-                                  keyboardType: TextInputType.phone,
-                                  decoration: InputDecoration(
-                                    hintText: " +92      xxxxxxxxxx",
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                              Row(
+                                children: [
+                                  // Dropdown button for country code selection
+                                  DropdownButton<String>(
+                                    dropdownColor: Colors.black87,
+                                    value: _selectedCountryCode,
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedCountryCode = newValue!;
+                                      });
+                                    },
+                                    items: _countryCodes.map((String code) {
+                                      return DropdownMenuItem<String>(
+                                        value: code,
+                                        child: Text(code,style: TextStyle(color: Colors.white),),
+                                      );
+                                    }).toList(),
+                                  ),
+                                  // TextField for phone number input
+                                  Expanded(
+                                    child: TextField(
+                                      controller: _phoneController,
+                                      keyboardType: TextInputType.phone,
+                                      decoration: InputDecoration(
+                                        hintText: 'xxxxxxxxxx',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide.none, // Remove border
+                                        ),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
+                              ),
                                 const SizedBox(height: 16),
                                 Container(
                                     alignment: Alignment.topLeft,
